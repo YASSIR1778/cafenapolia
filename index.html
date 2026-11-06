@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b0806" />
+    <!--
+      و7 (third review): dark from the first byte, and a first screen while the app is on its way
+      (about 220 KB, 4 to 6 seconds on 3G). The app takes its place as soon as it starts.
+    -->
+    <style>html,body{color:#f3e9dc;background:#0b0806;margin:0}#boot{box-sizing:border-box;text-align:center;flex-direction:column;justify-content:center;align-items:center;gap:12px;min-height:100svh;padding:32px 20px;font-family:Tajawal,system-ui,-apple-system,Segoe UI,sans-serif;display:flex}#boot .b-name{letter-spacing:-.5px;font-size:34px;font-weight:800}#boot .b-name span{color:#e30613}#boot .b-line{opacity:.8;font-size:15px;line-height:1.5}#boot .b-btns{flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6px;display:flex}#boot .b-btns a{border-radius:999px;align-items:center;height:46px;padding:0 22px;font-size:15px;font-weight:700;text-decoration:none;display:inline-flex}#boot .b-call{color:#0b0806;background:#d4a45a}#boot .b-wa{color:#06210f;background:#25d366}#boot .b-wait{opacity:.6;margin-top:10px;font-size:14px}</style>
     <meta name="description" content="Bella Napolia — مقهى في تطوان · Coffee shop à Tétouan. Espresso, lattes signature, matcha, milkshakes, jus frais. Carte et prix en direct, commande en ligne." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://cafenapolia.com/" />
@@ -66,11 +71,35 @@
         "sameAs": ["https://www.facebook.com/CafesNapolia", "https://www.instagram.com/cafe_napolia/"]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-Cy-PWTky.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/i18n-CDgx4QJz.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-C9UWZ4ig.css">
+    <script type="module" crossorigin src="/assets/index-DZcoTABr.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/i18n-cwF3AMfs.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-CmjMr1Pg.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="boot" dir="rtl">
+        <div class="b-name" dir="ltr">Bella <span>Napolia</span></div>
+        <div class="b-line">مقهى في تطوان · Coffee shop à Tétouan</div>
+        <div class="b-line" id="boot-hours">كل يوم · 7:00 – 22:00</div>
+        <div class="b-line" dir="ltr">110 Av. Mohamed Daoud, Tétouan</div>
+        <div class="b-btns">
+          <a class="b-call" href="tel:+212728544385">اتصل · Appeler</a>
+          <a class="b-wa" href="https://wa.me/212728544385" target="_blank" rel="noreferrer">واتساب · WhatsApp</a>
+        </div>
+        <div class="b-wait">القائمة تُحمَّل… · La carte arrive…</div>
+      </div>
+    </div>
+    <script>
+      // و7: the hours set in the dashboard, from the copy of the menu this phone keeps (none on a first visit).
+      try {
+        var kept = JSON.parse(localStorage.getItem('napolia-menu') || 'null');
+        var cafe = kept && kept.cafe;
+        if (cafe) {
+          var o = cafe.openHour == null ? 7 : cafe.openHour;
+          var c = cafe.closeHour == null ? 22 : cafe.closeHour;
+          document.getElementById('boot-hours').textContent = c - o >= 24 ? 'مفتوح كل يوم 24 ساعة' : 'كل يوم · ' + o + ':00 – ' + c + ':00';
+        }
+      } catch (e) {}
+    </script>
   </body>
 </html>
